@@ -185,6 +185,37 @@
   .story-teaser p{color:rgba(255,255,255,0.75); max-width:420px; font-size:16px;}
   .story-teaser-cta{flex-shrink:0;}
 
+  /* Booking request form */
+  .booking-section{background:var(--white);}
+  .booking-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:start;}
+  .booking-intro h2{font-size:clamp(26px, 3.2vw, 34px); font-weight:700; margin-bottom:16px; line-height:1.25;}
+  .booking-intro p{font-size:16px; color:rgba(29,37,45,0.75); margin-bottom:26px;}
+  .booking-alt{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 18px; background:var(--cream); border-radius:10px;
+    font-size:14.5px; color:var(--navy);
+  }
+  .booking-alt a{font-weight:700; color:var(--deep-green); text-decoration:underline;}
+  .booking-card{
+    background:var(--cream); border-radius:14px; padding:36px;
+  }
+  .booking-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .booking-field{margin-bottom:18px;}
+  .booking-field label{
+    display:block; font-size:13.5px; font-weight:700; color:var(--navy); margin-bottom:7px;
+  }
+  .booking-field input, .booking-field textarea, .booking-field select{
+    width:100%; padding:12px 14px; border-radius:8px;
+    border:1px solid rgba(29,37,45,0.18); background:var(--white);
+    font-family:'Poppins', sans-serif; font-size:14.5px; color:var(--navy);
+  }
+  .booking-field input:focus, .booking-field textarea:focus, .booking-field select:focus{
+    outline:2px solid var(--olive); outline-offset:1px; border-color:var(--olive);
+  }
+  .booking-field textarea{resize:vertical; min-height:90px;}
+  .booking-submit{width:100%; text-align:center; margin-top:4px;}
+  .booking-note{font-size:12.5px; color:rgba(29,37,45,0.55); margin-top:14px; text-align:center;}
+
   footer{background:var(--deep-green); color:var(--white); padding:60px 0 30px;}
   .footer-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.15); margin-bottom:24px;}
   .footer-brand{display:flex; align-items:center; gap:12px;}
@@ -201,6 +232,9 @@
     .feature.reverse .feature-media, .feature.reverse .feature-text{order:initial;}
     .story-teaser .wrap{flex-direction:column; text-align:center; align-items:center;}
     .story-teaser p{margin:0 auto;}
+    .booking-grid{grid-template-columns:1fr; gap:36px;}
+    .booking-row{grid-template-columns:1fr;}
+    .booking-card{padding:26px;}
     section{padding:64px 0;}
     .hero{min-height:78vh; padding:110px 20px 70px;}
     .feature{margin-bottom:64px;}
@@ -257,7 +291,7 @@
     <p data-i18n="heroSub">Vino e ospitalità tra le parracine di Ischia, sull'isola dove il mare incontra la vigna.</p>
     <div class="hero-ctas">
       <a href="#vini" class="btn btn-olive" data-i18n="heroCta1">Scopri i vini</a>
-      <a href="https://www.airbnb.it/" class="btn btn-outline" data-i18n="heroCta2">Prenota il soggiorno</a>
+      <a href="#prenota" class="btn btn-outline" data-i18n="heroCta2">Prenota il soggiorno</a>
     </div>
   </div>
 </section>
@@ -290,8 +324,64 @@
         <span class="price-tag" data-i18n="houseTag">Case in affitto</span>
         <h3 data-i18n="houseTitle">Dormi tra le vigne</h3>
         <p data-i18n="houseText">Le case dell'azienda affacciano sullo stesso panorama che vedi ne "Le Parracine del Toppo": tramonti sul mare, silenzio e la vendemmia a due passi dalla porta.</p>
-        <a href="https://www.airbnb.it/" class="btn btn-outline-dark" data-i18n="houseCta">Vedi le case disponibili</a>
+        <a href="#prenota" class="btn btn-outline-dark" data-i18n="houseCta">Richiedi disponibilità</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking-section" id="prenota">
+  <div class="wrap">
+    <div class="booking-grid">
+      <div class="booking-intro">
+        <div class="eyebrow" data-i18n="bookingEyebrow">Soggiorna a Fiorola</div>
+        <h2 data-i18n="bookingTitle">Richiedi la tua prenotazione</h2>
+        <p data-i18n="bookingText">Scrivici le date che ti interessano: ti risponderemo via email per confermare disponibilità e prezzo.</p>
+        <div class="booking-alt">
+          <span data-i18n="bookingAltText">Preferisci prenotare subito?</span>
+          <a href="https://www.airbnb.it/" data-i18n="bookingAltLink">Guarda su Airbnb</a>
+        </div>
+      </div>
+
+      <form class="booking-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="Nuova richiesta di prenotazione — Fiorola">
+        <div class="booking-row">
+          <div class="booking-field">
+            <label data-i18n="formName">Nome e cognome</label>
+            <input type="text" name="Nome" required>
+          </div>
+          <div class="booking-field">
+            <label data-i18n="formEmail">Email</label>
+            <input type="email" name="Email" required>
+          </div>
+        </div>
+        <div class="booking-row">
+          <div class="booking-field">
+            <label data-i18n="formCheckin">Arrivo</label>
+            <input type="date" name="Data di arrivo" required>
+          </div>
+          <div class="booking-field">
+            <label data-i18n="formCheckout">Partenza</label>
+            <input type="date" name="Data di partenza" required>
+          </div>
+        </div>
+        <div class="booking-row">
+          <div class="booking-field">
+            <label data-i18n="formGuests">Numero di ospiti</label>
+            <input type="number" name="Ospiti" min="1" value="2">
+          </div>
+          <div class="booking-field">
+            <label data-i18n="formPhone">Telefono (facoltativo)</label>
+            <input type="tel" name="Telefono">
+          </div>
+        </div>
+        <div class="booking-field">
+          <label data-i18n="formMessage">Messaggio (facoltativo)</label>
+          <textarea name="Messaggio" data-i18n-placeholder="formMessagePlaceholder" placeholder="Domande, richieste particolari..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-olive booking-submit" data-i18n="formSubmit">Invia richiesta</button>
+        <p class="booking-note" data-i18n="formNote">Ti risponderemo via email entro 24-48 ore.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -362,7 +452,7 @@
     houseTag:{it:"Case in affitto", en:"Houses to rent"},
     houseTitle:{it:"Dormi tra le vigne", en:"Sleep among the vines"},
     houseText:{it:"Le case dell'azienda affacciano sullo stesso panorama che vedi ne \"Le Parracine del Toppo\": tramonti sul mare, silenzio e la vendemmia a due passi dalla porta.", en:"The estate's houses look out over the same view you see in \"Le Parracine del Toppo\": sunsets over the sea, quiet, and the harvest just steps from the door."},
-    houseCta:{it:"Vedi le case disponibili", en:"See available houses"},
+    houseCta:{it:"Richiedi disponibilità", en:"Request availability"},
     storyTitle:{it:"Vuoi conoscere la storia del vigneto?", en:"Want to discover the vineyard's story?"},
     storyText:{it:"Le Parracine del Toppo racconta la memoria di un vigneto eroico: come è nato, chi lo ha custodito, cosa lo rende unico.", en:"Le Parracine del Toppo tells the story of a heroic vineyard: how it began, who has cared for it, and what makes it unique."},
     storyCta:{it:"Scopri il progetto", en:"Discover the project"},
@@ -370,6 +460,21 @@
     footerContactLabel:{it:"Contatti", en:"Contact"},
     footerProjectLabel:{it:"Il progetto", en:"The project"},
     footerCredit:{it:"Identità visiva a cura di Sintesi Studio", en:"Visual identity by Sintesi Studio"},
+    bookingEyebrow:{it:"Soggiorna a Fiorola", en:"Stay at Fiorola"},
+    bookingTitle:{it:"Richiedi la tua prenotazione", en:"Request your stay"},
+    bookingText:{it:"Scrivici le date che ti interessano: ti risponderemo via email per confermare disponibilità e prezzo.", en:"Send us the dates you're interested in — we'll reply by email to confirm availability and price."},
+    bookingAltText:{it:"Preferisci prenotare subito?", en:"Prefer to book instantly?"},
+    bookingAltLink:{it:"Guarda su Airbnb", en:"See it on Airbnb"},
+    formName:{it:"Nome e cognome", en:"Full name"},
+    formEmail:{it:"Email", en:"Email"},
+    formCheckin:{it:"Arrivo", en:"Check-in"},
+    formCheckout:{it:"Partenza", en:"Check-out"},
+    formGuests:{it:"Numero di ospiti", en:"Number of guests"},
+    formPhone:{it:"Telefono (facoltativo)", en:"Phone (optional)"},
+    formMessage:{it:"Messaggio (facoltativo)", en:"Message (optional)"},
+    formMessagePlaceholder:{it:"Domande, richieste particolari...", en:"Questions, special requests..."},
+    formSubmit:{it:"Invia richiesta", en:"Send request"},
+    formNote:{it:"Ti risponderemo via email entro 24-48 ore.", en:"We'll reply by email within 24-48 hours."},
     storyLink:{it_href:"https://www.leparracinedeltoppo.com/it/", en_href:"https://www.leparracinedeltoppo.com/en/"}
   };
 
@@ -385,6 +490,12 @@
       const hrefKey = lang + '_href';
       if(translations[key] && translations[key][hrefKey]){
         el.setAttribute('href', translations[key][hrefKey]);
+      }
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(translations[key] && translations[key][lang] !== undefined){
+        el.setAttribute('placeholder', translations[key][lang]);
       }
     });
     document.documentElement.lang = lang;
