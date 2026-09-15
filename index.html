@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fiorola — Azienda Agricola</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --olive:#9fa400;
@@ -18,14 +18,15 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Nunito Sans', sans-serif;
+    font-family:'Poppins', sans-serif;
     color:var(--navy);
     background:var(--white);
     line-height:1.55;
     overflow-x:hidden;
   }
   h1,h2,h3,.wordmark{
-    font-family:'Baloo 2', sans-serif;
+    font-family:'Poppins', sans-serif;
+    font-weight:800;
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
@@ -127,9 +128,10 @@
     display:flex; align-items:center; justify-content:center;
     text-align:center;
     background:
-      linear-gradient(180deg, rgba(29,37,45,0.35) 0%, rgba(29,37,45,0.55) 55%, rgba(0,87,70,0.55) 100%),
-      radial-gradient(ellipse at 30% 20%, rgba(159,164,0,0.25), transparent 55%),
-      linear-gradient(135deg, #2a3a33 0%, #1D252D 60%, #0f3d34 100%);
+      linear-gradient(180deg, rgba(29,37,45,0.45) 0%, rgba(29,37,45,0.55) 55%, rgba(0,87,70,0.6) 100%),
+      url('images/hero-terrace.jpg');
+    background-size:cover;
+    background-position:center 65%;
     color:var(--white);
     padding:120px 24px 90px;
   }
@@ -140,7 +142,7 @@
   .hero-inner{max-width:760px;}
   .hero h1{
     font-size:clamp(42px, 7vw, 74px);
-    font-weight:700;
+    font-weight:900;
     color:var(--cream);
     letter-spacing:0.5px;
     margin-bottom:20px;
@@ -167,13 +169,12 @@
   .feature.reverse .feature-text{order:1;}
   .feature-media{
     aspect-ratio:4/3; border-radius:6px;
-    background:linear-gradient(135deg, #3a4a3f, #1D252D);
-    display:flex; align-items:center; justify-content:center;
-    color:rgba(255,255,255,0.6); font-size:13px; font-style:italic;
-    text-align:center; padding:20px; overflow:hidden; position:relative;
+    overflow:hidden; position:relative;
+    background:var(--cream);
   }
-  .feature-media.olive-tone{background:linear-gradient(135deg, #7e8200, #4a5000);}
-  .feature-media.green-tone{background:linear-gradient(135deg, #005746, #06332a);}
+  .feature-media img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
   .feature-text h3{font-size:26px; font-weight:700; margin-bottom:14px;}
   .feature-text p{font-size:16px; color:rgba(29,37,45,0.75); margin-bottom:26px;}
   .price-tag{display:inline-block; font-size:14px; font-weight:700; color:var(--deep-green); background:rgba(0,87,70,0.08); padding:6px 14px; border-radius:20px; margin-bottom:18px;}
@@ -259,7 +260,6 @@
       <a href="https://www.airbnb.it/" class="btn btn-outline" data-i18n="heroCta2">Prenota il soggiorno</a>
     </div>
   </div>
-  <div class="hero-photo-note" data-i18n="heroPhotoNote">[Sostituire con foto: vigneto Fiorola al tramonto, vista mare]</div>
 </section>
 
 <section class="section-cream">
@@ -271,7 +271,9 @@
     </div>
 
     <div class="feature" id="vini">
-      <div class="feature-media olive-tone" data-i18n="wineMediaNote">[Foto: bottiglie e calici di vino Fiorola]</div>
+      <div class="feature-media">
+        <img src="images/vineyard-rows.jpg" alt="Vigneto Fiorola">
+      </div>
       <div class="feature-text">
         <span class="price-tag" data-i18n="wineTag">Vendita diretta</span>
         <h3 data-i18n="wineTitle">I vini di Fiorola</h3>
@@ -281,7 +283,9 @@
     </div>
 
     <div class="feature reverse" id="case">
-      <div class="feature-media green-tone" data-i18n="houseMediaNote">[Foto: esterno di una delle case in affitto, vista mare]</div>
+      <div class="feature-media">
+        <img src="images/stone-house.jpg" alt="Casa in pietra Fiorola">
+      </div>
       <div class="feature-text">
         <span class="price-tag" data-i18n="houseTag">Case in affitto</span>
         <h3 data-i18n="houseTitle">Dormi tra le vigne</h3>
