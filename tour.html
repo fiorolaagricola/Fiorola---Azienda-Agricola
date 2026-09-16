@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour del Vigneto — Fiorola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olive:#9fa400; --olive-dark:#7e8200; --navy:#1D252D; --deep-green:#005746; --cream:#ede9de; --white:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ font-family:'Poppins', sans-serif; color:var(--navy); background:var(--white); line-height:1.55; overflow-x:hidden; }
+  h1,h2,h3{ font-family:'Poppins', sans-serif; font-weight:800; }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  .logo-img{ height:52px; width:auto; display:block; }
+  .footer-brand .logo-img{ height:44px; }
+
+  header{ position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid rgba(29,37,45,0.08); }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; position:relative; }
+  .brand{display:flex; align-items:center; gap:12px;}
+  nav{display:flex; align-items:center; gap:28px;}
+  nav a{font-size:15px; font-weight:600; color:var(--navy); opacity:0.85; transition:opacity .15s; white-space:nowrap;}
+  nav a:hover{opacity:1; color:var(--olive-dark);}
+  nav a.current{opacity:1; border-bottom:2px solid var(--olive);}
+  .header-right{display:flex; align-items:center; gap:14px;}
+  .lang-select{
+    appearance:none; -webkit-appearance:none; font-family:'Poppins', sans-serif; font-size:14px; font-weight:700; color:var(--navy);
+    padding:8px 34px 8px 14px; border:1px solid rgba(29,37,45,0.18); border-radius:20px;
+    background:var(--white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%231D252D' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 14px center;
+    cursor:pointer;
+  }
+  .lang-select:focus{outline:2px solid var(--olive); outline-offset:2px;}
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:38px; height:38px; border:none; background:none; cursor:pointer; }
+  .nav-toggle span{display:block; width:24px; height:2.5px; background:var(--navy); border-radius:2px; transition:transform .2s, opacity .2s;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+  .mobile-nav{ display:none; position:absolute; top:76px; left:0; right:0; background:var(--white); border-bottom:1px solid rgba(29,37,45,0.08); box-shadow:0 12px 24px rgba(29,37,45,0.08); flex-direction:column; padding:8px 24px 20px; }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{ font-size:16px; font-weight:600; color:var(--navy); padding:14px 0; border-bottom:1px solid rgba(29,37,45,0.06); }
+  .mobile-nav a:last-child{border-bottom:none;}
+
+  .btn{ display:inline-block; padding:14px 30px; border-radius:999px; font-weight:700; font-size:14px; letter-spacing:0.3px; text-transform:uppercase; transition:transform .15s, box-shadow .15s; cursor:pointer; border:none; font-family:'Poppins', sans-serif; }
+  .btn-olive{background:var(--olive); color:var(--white);}
+  .btn-olive:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(159,164,0,0.35);}
+
+  .page-hero{
+    background:linear-gradient(135deg, #2a3a33 0%, #1D252D 60%, #0f3d34 100%);
+    color:var(--white); text-align:center; padding:90px 24px 60px;
+  }
+  .page-hero h1{font-size:clamp(34px,5vw,52px); color:var(--cream); margin-bottom:14px;}
+  .page-hero p{font-size:17px; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto;}
+
+  section{padding:64px 0 100px;}
+
+  .map-container{
+    position:relative; width:100%; border-radius:14px; overflow:hidden;
+    box-shadow:0 20px 50px rgba(29,37,45,0.18);
+  }
+  .map-container img{width:100%; display:block;}
+  .map-pin{
+    position:absolute; width:38px; height:38px; border-radius:50%;
+    background:var(--olive); color:var(--white); font-weight:800; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    transform:translate(-50%,-50%); cursor:pointer;
+    border:3px solid var(--white); box-shadow:0 3px 10px rgba(0,0,0,0.35);
+    transition:transform .15s, background .15s;
+    font-family:'Poppins', sans-serif;
+  }
+  .map-pin:hover{transform:translate(-50%,-50%) scale(1.12);}
+  .map-pin.active{background:var(--white); color:var(--deep-green); border-color:var(--olive);}
+
+  .tour-hint{ text-align:center; font-size:14px; color:rgba(29,37,45,0.55); margin-top:16px; }
+
+  .info-panel{
+    margin-top:36px; background:var(--cream); border-radius:14px;
+    padding:36px; display:grid; grid-template-columns:1fr 1.3fr; gap:32px; align-items:center;
+  }
+  .info-media{
+    aspect-ratio:4/3; border-radius:10px; overflow:hidden; background:var(--white);
+    display:flex; align-items:center; justify-content:center; color:rgba(29,37,45,0.4);
+    font-size:13px; font-style:italic; text-align:center; padding:16px;
+  }
+  .info-media img{width:100%; height:100%; object-fit:cover;}
+  .info-text .eyebrow{font-size:13px; font-weight:700; color:var(--olive-dark); margin-bottom:8px;}
+  .info-text h2{font-size:26px; margin-bottom:12px;}
+  .info-text p{font-size:15.5px; color:rgba(29,37,45,0.8);}
+
+  footer{background:var(--deep-green); color:var(--white); padding:60px 0 30px;}
+  .footer-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.15); margin-bottom:24px;}
+  .footer-brand{display:flex; align-items:center; gap:12px;}
+  .footer-cols{display:flex; gap:64px; flex-wrap:wrap;}
+  .footer-col h4{font-size:13px; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:14px; font-weight:700;}
+  .footer-col p, .footer-col a{font-size:14.5px; color:rgba(255,255,255,0.88); display:block; margin-bottom:8px;}
+  .footer-bottom{font-size:13px; color:rgba(255,255,255,0.5); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  @media (max-width:860px){
+    nav{display:none;}
+    .nav-toggle{display:flex;}
+    .info-panel{grid-template-columns:1fr; gap:20px; padding:24px;}
+    .map-pin{width:30px; height:30px; font-size:13px;}
+    section{padding:44px 0 70px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="images/fiorola-logo.png" alt="Fiorola — Azienda Agricola" class="logo-img">
+    </a>
+    <nav>
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="index.html#vini" data-i18n="navWines">I Nostri Vini</a>
+      <a href="case.html" data-i18n="navHouses">Le Case</a>
+      <a href="tour.html" class="current" data-i18n="navTour">Tour del Vigneto</a>
+      <a href="index.html#contatti" data-i18n="navContact">Contatti</a>
+    </nav>
+    <div class="header-right">
+      <select id="langSwitch" class="lang-select" aria-label="Language / Lingua">
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="index.html#vini" data-i18n="navWines">I Nostri Vini</a>
+      <a href="case.html" data-i18n="navHouses">Le Case</a>
+      <a href="tour.html" data-i18n="navTour">Tour del Vigneto</a>
+      <a href="index.html#contatti" data-i18n="navContact">Contatti</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1 data-i18n="tourTitle">Esplora il vigneto</h1>
+    <p data-i18n="tourSubtitle">Clicca sui numeri della mappa per scoprire ogni angolo di Fiorola.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="map-container">
+      <img src="images/vineyard-map.jpg" alt="Mappa del vigneto Fiorola">
+      <div class="map-pin" style="left:38.9%; top:63.6%;" data-point="1">1</div>
+      <div class="map-pin" style="left:46.9%; top:71.7%;" data-point="2">2</div>
+      <div class="map-pin" style="left:52.9%; top:49.5%;" data-point="3">3</div>
+      <div class="map-pin" style="left:77.1%; top:25.5%;" data-point="4">4</div>
+      <div class="map-pin" style="left:86.5%; top:28.4%;" data-point="5">5</div>
+      <div class="map-pin" style="left:59.2%; top:91.2%;" data-point="6">6</div>
+    </div>
+    <p class="tour-hint" data-i18n="tourHint">Tocca un numero sulla mappa per saperne di più</p>
+
+    <div class="info-panel">
+      <div class="info-media" id="infoMedia" data-i18n="p1Photo">[Foto: Ingresso]</div>
+      <div class="info-text">
+        <div class="eyebrow" id="infoEyebrow" data-i18n="p1Eyebrow">Punto 1</div>
+        <h2 id="infoTitle" data-i18n="p1Title">Ingresso</h2>
+        <p id="infoText" data-i18n="p1Text">L'ingresso al vigneto eroico di Fiorola, tra le antiche parracine di tufo verde restaurate nell'ambito del progetto PNRR.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contatti">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="images/fiorola-logo-light.png" alt="Fiorola — Azienda Agricola" class="logo-img">
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4 data-i18n="footerAddressLabel">Indirizzo</h4>
+        <p>Santa Maria al Monte, 5</p>
+        <p>80075 Forio d'Ischia (NA)</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerContactLabel">Contatti</h4>
+        <a href="https://wa.me/+393473477469">WhatsApp: +39 347 347 7469</a>
+        <a href="#">info@fiorola.it</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerProjectLabel">Il progetto</h4>
+        <a href="https://www.leparracinedeltoppo.com/it/">Le Parracine del Toppo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Fiorola — Azienda Agricola</span>
+      <span data-i18n="footerCredit">Identità visiva a cura di Sintesi Studio</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const points = {
+    1: {
+      eyebrow:{it:"Punto 1", en:"Point 1"},
+      title:{it:"Ingresso", en:"Entrance"},
+      text:{it:"L'ingresso al vigneto eroico di Fiorola, tra le antiche parracine di tufo verde restaurate nell'ambito del progetto PNRR.", en:"The entrance to Fiorola's heroic vineyard, among the ancient green-tuff dry-stone terraces restored as part of the PNRR project."},
+      photo:{it:"[Foto: Ingresso]", en:"[Photo: Entrance]"}
+    },
+    2: {
+      eyebrow:{it:"Punto 2", en:"Point 2"},
+      title:{it:"Cantina di Nonno Antonio", en:"Antonio's Cellar (New Cellar)"},
+      text:{it:"La cantina più recente della famiglia, scavata nella roccia di tufo, dove oggi si produce ancora il vino Fiorola.", en:"The family's newer cellar, carved into the tuff rock, where Fiorola wine is still made today."},
+      photo:{it:"[Foto: Cantina di Nonno Antonio]", en:"[Photo: Antonio's Cellar]"}
+    },
+    3: {
+      eyebrow:{it:"Punto 3", en:"Point 3"},
+      title:{it:"Campo di bocce", en:"Bocce Court"},
+      text:{it:"Un campo da bocce tra le vigne, per un pomeriggio di gioco all'ombra, circondati dal panorama sul mare.", en:"A bocce court among the vines — an afternoon of play in the shade, surrounded by sea views."},
+      photo:{it:"[Foto: Campo di bocce]", en:"[Photo: Bocce court]"}
+    },
+    4: {
+      eyebrow:{it:"Punto 4", en:"Point 4"},
+      title:{it:"Cantina di zio Vincenzo", en:"Vincenzo's Cellar (Old Cellar)"},
+      text:{it:"La cantina storica della famiglia, testimonianza della lunga tradizione vitivinicola dell'isola d'Ischia.", en:"The family's historic cellar, a living witness to Ischia's long winemaking tradition."},
+      photo:{it:"[Foto: Cantina di zio Vincenzo]", en:"[Photo: Vincenzo's Cellar]"}
+    },
+    5: {
+      eyebrow:{it:"Punto 5", en:"Point 5"},
+      title:{it:"Area Relax", en:"Rest Area"},
+      text:{it:"Un angolo attrezzato per rilassarsi tra le vigne, ammirando il panorama sul mare.", en:"A spot set up for relaxing among the vines, with a view over the sea."},
+      photo:{it:"[Foto: Area Relax]", en:"[Photo: Rest Area]"}
+    },
+    6: {
+      eyebrow:{it:"Punto 6", en:"Point 6"},
+      title:{it:"Uscita", en:"Exit"},
+      text:{it:"Il percorso si conclude qui, con un'ultima vista sulle terrazze e sul mare.", en:"The path ends here, with one last view over the terraces and the sea."},
+      photo:{it:"[Foto: Uscita]", en:"[Photo: Exit]"}
+    }
+  };
+
+  const translations = {
+    navHome:{it:"Home", en:"Home"},
+    navWines:{it:"I Nostri Vini", en:"Our Wines"},
+    navHouses:{it:"Le Case", en:"The Houses"},
+    navTour:{it:"Tour del Vigneto", en:"Vineyard Tour"},
+    navContact:{it:"Contatti", en:"Contact"},
+    tourTitle:{it:"Esplora il vigneto", en:"Explore the vineyard"},
+    tourSubtitle:{it:"Clicca sui numeri della mappa per scoprire ogni angolo di Fiorola.", en:"Click the numbers on the map to discover every corner of Fiorola."},
+    tourHint:{it:"Tocca un numero sulla mappa per saperne di più", en:"Tap a number on the map to learn more"},
+    footerAddressLabel:{it:"Indirizzo", en:"Address"},
+    footerContactLabel:{it:"Contatti", en:"Contact"},
+    footerProjectLabel:{it:"Il progetto", en:"The project"},
+    footerCredit:{it:"Identità visiva a cura di Sintesi Studio", en:"Visual identity by Sintesi Studio"}
+  };
+
+  let currentLang = 'it';
+
+  function setLanguage(lang){
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      const key = el.getAttribute('data-i18n');
+      if(translations[key] && translations[key][lang] !== undefined){ el.textContent = translations[key][lang]; }
+    });
+    document.documentElement.lang = lang;
+    const sel = document.getElementById('langSwitch');
+    if(sel && sel.value !== lang) sel.value = lang;
+    const activePin = document.querySelector('.map-pin.active');
+    showPoint(activePin ? activePin.getAttribute('data-point') : '1');
+  }
+
+  function showPoint(num){
+    const p = points[num];
+    if(!p) return;
+    document.getElementById('infoEyebrow').textContent = p.eyebrow[currentLang];
+    document.getElementById('infoTitle').textContent = p.title[currentLang];
+    document.getElementById('infoText').textContent = p.text[currentLang];
+    document.getElementById('infoMedia').textContent = p.photo[currentLang];
+    document.querySelectorAll('.map-pin').forEach(function(pin){
+      pin.classList.toggle('active', pin.getAttribute('data-point') === String(num));
+    });
+  }
+
+  document.querySelectorAll('.map-pin').forEach(function(pin){
+    pin.addEventListener('click', function(){ showPoint(pin.getAttribute('data-point')); });
+  });
+  showPoint('1');
+
+  document.getElementById('langSwitch').addEventListener('change', function(e){ setLanguage(e.target.value); });
+
+  const navToggle = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  navToggle.addEventListener('click', function(){
+    const isOpen = mobileNav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+    });
+  });
+</script>
+
+</body>
+</html>

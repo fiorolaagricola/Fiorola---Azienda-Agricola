@@ -171,6 +171,8 @@
     aspect-ratio:4/3; border-radius:6px;
     overflow:hidden; position:relative;
     background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(29,37,45,0.4); font-size:13px; font-style:italic; text-align:center; padding:20px;
   }
   .feature-media img{
     width:100%; height:100%; object-fit:cover; display:block;
@@ -261,6 +263,7 @@
       <a href="#" class="current" data-i18n="navHome">Home</a>
       <a href="#vini" data-i18n="navWines">I Nostri Vini</a>
       <a href="case.html" data-i18n="navHouses">Le Case</a>
+      <a href="tour.html" data-i18n="navTour">Tour del Vigneto</a>
       <a href="https://www.leparracinedeltoppo.com/it/" data-i18n="navStory" data-i18n-href="storyLink">La Nostra Storia</a>
       <a href="#contatti" data-i18n="navContact">Contatti</a>
     </nav>
@@ -279,6 +282,7 @@
       <a href="#" data-i18n="navHome">Home</a>
       <a href="#vini" data-i18n="navWines">I Nostri Vini</a>
       <a href="case.html" data-i18n="navHouses">Le Case</a>
+      <a href="tour.html" data-i18n="navTour">Tour del Vigneto</a>
       <a href="https://www.leparracinedeltoppo.com/it/" data-i18n="navStory" data-i18n-href="storyLink">La Nostra Storia</a>
       <a href="#contatti" data-i18n="navContact">Contatti</a>
     </div>
@@ -326,6 +330,17 @@
         <p data-i18n="houseText">Le case dell'azienda affacciano sullo stesso panorama che vedi ne "Le Parracine del Toppo": tramonti sul mare, silenzio e la vendemmia a due passi dalla porta.</p>
         <a href="#prenota" class="btn btn-outline-dark" data-i18n="houseCta">Richiedi disponibilità</a>
         <a href="case.html" class="btn btn-olive" data-i18n="houseViewAllCta">Vedi le 3 case</a>
+      </div>
+    </div>
+
+    <div class="feature" id="esperienze">
+      <div class="feature-media" data-i18n="expMediaNote">[Foto: degustazione vino tra le vigne]</div>
+      <div class="feature-text">
+        <span class="price-tag" data-i18n="expTag">Esperienza a pagamento</span>
+        <h3 data-i18n="expTitle">Tour e degustazione tra le vigne</h3>
+        <p data-i18n="expText">Vieni a visitare il vigneto, cammina tra le parracine a picco sul mare e scopri le nostre due cantine scavate nel tufo. La visita si conclude con una degustazione dei vini Fiorola accompagnata da taralli e prodotti locali.</p>
+        <a href="https://wa.me/+393473477469" class="btn btn-outline-dark" data-i18n="expCta">Prenota il tour</a>
+        <a href="tour.html" class="btn btn-olive" data-i18n="expMapCta">Esplora la mappa</a>
       </div>
     </div>
   </div>
@@ -435,6 +450,7 @@
     navHome:{it:"Home", en:"Home"},
     navWines:{it:"I Nostri Vini", en:"Our Wines"},
     navHouses:{it:"Le Case", en:"The Houses"},
+    navTour:{it:"Tour del Vigneto", en:"Vineyard Tour"},
     navStory:{it:"La Nostra Storia", en:"Our Story"},
     navContact:{it:"Contatti", en:"Contact"},
     heroSub:{it:"Vino e ospitalità tra le parracine di Ischia, sull'isola dove il mare incontra la vigna.", en:"Wine and hospitality among the dry-stone terraces of Ischia, where the sea meets the vineyard."},
@@ -443,6 +459,12 @@
     heroPhotoNote:{it:"[Sostituire con foto: vigneto Fiorola al tramonto, vista mare]", en:"[Replace with photo: Fiorola vineyard at sunset, sea view]"},
     introEyebrow:{it:"Benvenuti a Fiorola", en:"Welcome to Fiorola"},
     introTitle:{it:"La stessa terra, due modi per viverla.", en:"The same land, two ways to experience it."},
+    expMediaNote:{it:"[Foto: degustazione vino tra le vigne]", en:"[Photo: wine tasting among the vines]"},
+    expTag:{it:"Esperienza a pagamento", en:"Paid experience"},
+    expTitle:{it:"Tour e degustazione tra le vigne", en:"Tour & tasting among the vines"},
+    expText:{it:"Vieni a visitare il vigneto, cammina tra le parracine a picco sul mare e scopri le nostre due cantine scavate nel tufo. La visita si conclude con una degustazione dei vini Fiorola accompagnata da taralli e prodotti locali.", en:"Come visit the vineyard, walk the terraces overlooking the sea, and discover our two cellars carved into the tuff. The visit ends with a tasting of Fiorola wines paired with taralli and local products."},
+    expCta:{it:"Prenota il tour", en:"Book the tour"},
+    expMapCta:{it:"Esplora la mappa", en:"Explore the map"},
     introText:{it:"Dal vigneto eroico raccontato ne Le Parracine del Toppo nascono il vino e le case che oggi puoi portare a casa, o abitare per qualche giorno.", en:"From the heroic vineyard told in Le Parracine del Toppo comes the wine and the houses you can now take home, or stay in for a few days."},
     wineMediaNote:{it:"[Foto: bottiglie e calici di vino Fiorola]", en:"[Photo: bottles and glasses of Fiorola wine]"},
     wineTag:{it:"Vendita diretta", en:"Direct sale"},
