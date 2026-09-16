@@ -64,7 +64,7 @@
     color:var(--white); text-align:center; padding:90px 24px 70px;
   }
   .page-hero h1{font-size:clamp(34px,5vw,52px); color:var(--cream); margin-bottom:14px;}
-  .page-hero p{font-size:17px; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto;}
+  .page-hero p{font-size:17px; color:rgba(255,255,255,0.85); max-width:680px; margin:0 auto;}
 
   section{padding:80px 0;}
   .houses-grid{display:flex; flex-direction:column; gap:70px;}
@@ -80,6 +80,44 @@
   .house-fact{font-size:13.5px; font-weight:600; color:var(--navy); background:var(--cream); padding:8px 14px; border-radius:20px;}
   .house-ctas{display:flex; gap:14px; flex-wrap:wrap;}
 
+  /* Gallery grid */
+  .gallery-label{ font-size:13px; font-weight:700; color:var(--olive-dark); margin:28px 0 12px; text-transform:uppercase; letter-spacing:0.5px; }
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:10px;
+  }
+  .gallery-thumb{
+    aspect-ratio:1; border-radius:8px; overflow:hidden; cursor:pointer;
+    border:none; padding:0; background:var(--cream);
+  }
+  .gallery-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .2s; }
+  .gallery-thumb:hover img{ transform:scale(1.06); }
+
+  /* Lightbox */
+  .lightbox{
+    display:none; position:fixed; inset:0; z-index:1000;
+    background:rgba(10,14,12,0.92);
+    align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{ max-width:min(900px, 90vw); max-height:80vh; object-fit:contain; border-radius:6px; }
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; background:none; border:none;
+    color:var(--white); font-size:32px; line-height:1; cursor:pointer;
+  }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.15); border:none; color:var(--white);
+    width:48px; height:48px; border-radius:50%; font-size:22px; cursor:pointer;
+  }
+  .lightbox-nav:hover{background:rgba(255,255,255,0.3);}
+  .lightbox-prev{left:16px;}
+  .lightbox-next{right:16px;}
+  .lightbox-counter{
+    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+    color:rgba(255,255,255,0.75); font-size:13px;
+  }
+
   footer{background:var(--deep-green); color:var(--white); padding:60px 0 30px;}
   .footer-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.15); margin-bottom:24px;}
   .footer-brand{display:flex; align-items:center; gap:12px;}
@@ -94,6 +132,8 @@
     .house-card, .house-card.reverse{grid-template-columns:1fr; gap:24px;}
     .house-card.reverse .house-media, .house-card.reverse .house-info{order:initial;}
     section{padding:56px 0;}
+    .gallery-grid{grid-template-columns:repeat(auto-fill, minmax(100px, 1fr));}
+    .lightbox-nav{width:40px; height:40px; font-size:18px;}
   }
   @media (max-width:480px){
     .wrap{padding:0 18px;}
@@ -138,7 +178,7 @@
 <section class="page-hero">
   <div class="wrap">
     <h1 data-i18n="pageTitle">Le case di Fiorola</h1>
-    <p data-i18n="pageSubtitle">Tre case tra le vigne, ognuna con la sua vista sul mare.</p>
+    <p data-i18n="pageSubtitle">Tramonti con la luce che filtra tra i filari, il sole che si riflette sul mare, le isole pontine in lontananza. Sei sull'isola d'Ischia, tra storia e acque termali — e ci siamo noi, pronti a portarti a pesca in barca o a fare trekking sull'Epomeo.</p>
   </div>
 </section>
 
@@ -147,14 +187,15 @@
     <div class="houses-grid">
 
       <div class="house-card">
-        <div class="house-media" data-i18n="house1PhotoNote">[Foto: Blue House — esterno/interno]</div>
+        <div class="house-media" data-i18n="house1PhotoNote">[Foto: Blue House — in attesa di foto specifiche]</div>
         <div class="house-info">
           <div class="eyebrow" data-i18n="house1Eyebrow">Casa 1</div>
           <h2 data-i18n="house1Name">Blue House</h2>
-          <p data-i18n="house1Desc">Breve descrizione della casa: atmosfera, vista, cosa la rende speciale.</p>
+          <p data-i18n="house1Desc">Ingresso indipendente, cucina interna e una camera con letto matrimoniale, immersa tra i terrazzamenti. Gli ospiti hanno accesso ad altre aree dell'azienda agricola, barbecue incluso — con alcuni dei tramonti più belli della proprietà.</p>
           <div class="house-facts">
-            <span class="house-fact" data-i18n="house1Guests">👥 Ospiti: —</span>
-            <span class="house-fact" data-i18n="house1Beds">🛏️ Camere: —</span>
+            <span class="house-fact" data-i18n="house1Guests">👥 Ospiti: 3</span>
+            <span class="house-fact" data-i18n="house1Beds">🛏️ Camere: 1 (1 letto)</span>
+            <span class="house-fact" data-i18n="house1Bath">🚿 Bagni: 1</span>
             <span class="house-fact" data-i18n="house1View">🌊 Vista mare</span>
           </div>
           <div class="house-ctas">
@@ -165,15 +206,18 @@
       </div>
 
       <div class="house-card reverse">
-        <div class="house-media" data-i18n="house2PhotoNote">[Foto: Billiard House — esterno/interno]</div>
+        <div class="house-media">
+          <img src="images/billiard-house-terrace.jpg" alt="Billiard House — terrazza con vista mare">
+        </div>
         <div class="house-info">
           <div class="eyebrow" data-i18n="house2Eyebrow">Casa 2</div>
           <h2 data-i18n="house2Name">Billiard House</h2>
-          <p data-i18n="house2Desc">Breve descrizione della casa: atmosfera, vista, cosa la rende speciale.</p>
+          <p data-i18n="house2Desc">Camera matrimoniale, bagno separato, lavatrice e un ingresso comodo con pochi gradini. Fuori, un orto stagionale da raccogliere e un'area pranzo all'aperto; dentro, un tavolo da biliardo per le serate in casa.</p>
           <div class="house-facts">
-            <span class="house-fact" data-i18n="house2Guests">👥 Ospiti: —</span>
-            <span class="house-fact" data-i18n="house2Beds">🛏️ Camere: —</span>
-            <span class="house-fact" data-i18n="house2View">🌊 Vista mare</span>
+            <span class="house-fact" data-i18n="house2Guests">👥 Ospiti: 2</span>
+            <span class="house-fact" data-i18n="house2Beds">🛏️ Camere: 1 (1 letto)</span>
+            <span class="house-fact" data-i18n="house2Bath">🚿 Bagni: 1</span>
+            <span class="house-fact" data-i18n="house2View">🎱 Tavolo da biliardo</span>
           </div>
           <div class="house-ctas">
             <a href="https://www.airbnb.it/rooms/687757111072661971" class="btn btn-olive" data-i18n="houseAirbnbCta">Prenota su Airbnb</a>
@@ -182,7 +226,13 @@
         </div>
       </div>
 
+      <div class="gallery-block">
+        <div class="gallery-label" data-i18n="galleryLabel">Foto — Billiard House</div>
+        <div class="gallery-grid" id="gallery-billiard"></div>
+      </div>
+
       <div class="house-card">
+
         <div class="house-media" data-i18n="house3PhotoNote">[Foto: Casa 3 — esterno/interno]</div>
         <div class="house-info">
           <div class="eyebrow" data-i18n="house3Eyebrow">Casa 3</div>
@@ -243,21 +293,22 @@
     navStory:{it:"La Nostra Storia", en:"Our Story"},
     navContact:{it:"Contatti", en:"Contact"},
     pageTitle:{it:"Le case di Fiorola", en:"The houses of Fiorola"},
-    pageSubtitle:{it:"Tre case tra le vigne, ognuna con la sua vista sul mare.", en:"Three houses among the vines, each with its own sea view."},
-    house1PhotoNote:{it:"[Foto: Blue House — esterno/interno]", en:"[Photo: Blue House — exterior/interior]"},
+    pageSubtitle:{it:"Tramonti con la luce che filtra tra i filari, il sole che si riflette sul mare, le isole pontine in lontananza. Sei sull'isola d'Ischia, tra storia e acque termali — e ci siamo noi, pronti a portarti a pesca in barca o a fare trekking sull'Epomeo.", en:"Sunsets with light filtering through the vineyard rows, the sun reflecting off the sea, the Pontine Islands in the distance. You're on the island of Ischia, full of history and thermal waters — and then there's us, ready to take you out fishing by boat or hiking up Mount Epomeo."},
+    house1PhotoNote:{it:"[Foto: Blue House — in attesa di foto specifiche]", en:"[Photo: Blue House — waiting on specific photos]"},
     house1Eyebrow:{it:"Casa 1", en:"House 1"},
     house1Name:{it:"Blue House", en:"Blue House"},
-    house1Desc:{it:"Breve descrizione della casa: atmosfera, vista, cosa la rende speciale.", en:"Short description of the house: atmosphere, view, what makes it special."},
-    house1Guests:{it:"👥 Ospiti: —", en:"👥 Guests: —"},
-    house1Beds:{it:"🛏️ Camere: —", en:"🛏️ Bedrooms: —"},
+    house1Desc:{it:"Ingresso indipendente, cucina interna e una camera con letto matrimoniale, immersa tra i terrazzamenti. Gli ospiti hanno accesso ad altre aree dell'azienda agricola, barbecue incluso — con alcuni dei tramonti più belli della proprietà.", en:"Independent entrance, an indoor kitchen, and one bedroom with a queen bed, tucked among the terraced gardens. Guests can access other parts of the farm, including the barbecue — with some of the best sunsets on the property."},
+    house1Guests:{it:"👥 Ospiti: 3", en:"👥 Guests: 3"},
+    house1Beds:{it:"🛏️ Camere: 1 (1 letto)", en:"🛏️ Bedrooms: 1 (1 bed)"},
+    house1Bath:{it:"🚿 Bagni: 1", en:"🚿 Bathrooms: 1"},
     house1View:{it:"🌊 Vista mare", en:"🌊 Sea view"},
-    house2PhotoNote:{it:"[Foto: Billiard House — esterno/interno]", en:"[Photo: Billiard House — exterior/interior]"},
     house2Eyebrow:{it:"Casa 2", en:"House 2"},
     house2Name:{it:"Billiard House", en:"Billiard House"},
-    house2Desc:{it:"Breve descrizione della casa: atmosfera, vista, cosa la rende speciale.", en:"Short description of the house: atmosphere, view, what makes it special."},
-    house2Guests:{it:"👥 Ospiti: —", en:"👥 Guests: —"},
-    house2Beds:{it:"🛏️ Camere: —", en:"🛏️ Bedrooms: —"},
-    house2View:{it:"🌊 Vista mare", en:"🌊 Sea view"},
+    house2Desc:{it:"Camera matrimoniale, bagno separato, lavatrice e un ingresso comodo con pochi gradini. Fuori, un orto stagionale da raccogliere e un'area pranzo all'aperto; dentro, un tavolo da biliardo per le serate in casa.", en:"A queen bedroom, separate bathroom, washer, and easy entry with minimal stairs. Outside, a seasonal garden to harvest from and an outdoor dining area; inside, a billiard table for evenings in."},
+    house2Guests:{it:"👥 Ospiti: 2", en:"👥 Guests: 2"},
+    house2Beds:{it:"🛏️ Camere: 1 (1 letto)", en:"🛏️ Bedrooms: 1 (1 bed)"},
+    house2Bath:{it:"🚿 Bagni: 1", en:"🚿 Bathrooms: 1"},
+    house2View:{it:"🎱 Tavolo da biliardo", en:"🎱 Billiard table"},
     house3PhotoNote:{it:"[Foto: Casa 3 — esterno/interno]", en:"[Photo: House 3 — exterior/interior]"},
     house3Eyebrow:{it:"Casa 3", en:"House 3"},
     house3Name:{it:"Nome della casa", en:"House name"},
