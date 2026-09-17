@@ -72,6 +72,14 @@
   .house-card.reverse .house-media{order:2;}
   .house-card.reverse .house-info{order:1;}
   .house-media{aspect-ratio:4/3; border-radius:10px; overflow:hidden; background:var(--cream); display:flex; align-items:center; justify-content:center; color:rgba(29,37,45,0.4); font-size:13px; font-style:italic; text-align:center; padding:20px;}
+  .house-gallery{display:flex; flex-direction:column; gap:10px;}
+  .gallery-main{aspect-ratio:4/3; border-radius:10px; overflow:hidden; background:var(--cream);}
+  .gallery-main img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .15s;}
+  .gallery-thumbs{display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;}
+  .gallery-thumb{width:60px; height:60px; flex-shrink:0; border-radius:6px; overflow:hidden; cursor:pointer; border:2px solid transparent; opacity:0.65; transition:opacity .15s, border-color .15s;}
+  .gallery-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery-thumb:hover{opacity:1;}
+  .gallery-thumb.active{opacity:1; border-color:var(--olive);}
   .house-media img{width:100%; height:100%; object-fit:cover;}
   .house-info .eyebrow{font-size:13px; font-weight:700; color:var(--olive-dark); margin-bottom:10px;}
   .house-info h2{font-size:28px; margin-bottom:12px;}
@@ -187,7 +195,18 @@
     <div class="houses-grid">
 
       <div class="house-card">
-        <div class="house-media" data-i18n="house1PhotoNote">[Foto: Blue House — in attesa di foto specifiche]</div>
+        <div class="house-gallery">
+          <div class="gallery-main">
+            <img src="images/blue-house-terrace-hammock.jpg" alt="Blue House — terrazza con amaca e vista mare" id="blue-main-img">
+          </div>
+          <div class="gallery-thumbs">
+            <div class="gallery-thumb active" data-full="images/blue-house-terrace-hammock.jpg" data-target="blue-main-img"><img src="images/blue-house-terrace-hammock.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/blue-house-terrace-facade.jpg" data-target="blue-main-img"><img src="images/blue-house-terrace-facade.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/blue-house-kitchen.jpg" data-target="blue-main-img"><img src="images/blue-house-kitchen.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/blue-house-bathroom.jpg" data-target="blue-main-img"><img src="images/blue-house-bathroom.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/blue-house-outdoor-kitchen.jpg" data-target="blue-main-img"><img src="images/blue-house-outdoor-kitchen.jpg" alt=""></div>
+          </div>
+        </div>
         <div class="house-info">
           <div class="eyebrow" data-i18n="house1Eyebrow">Casa 1</div>
           <h2 data-i18n="house1Name">Blue House</h2>
@@ -206,8 +225,16 @@
       </div>
 
       <div class="house-card reverse">
-        <div class="house-media">
-          <img src="images/billiard-house-terrace.jpg" alt="Billiard House — terrazza con vista mare">
+        <div class="house-gallery">
+          <div class="gallery-main">
+            <img src="images/billiard-house-terrace.jpg" alt="Billiard House — terrazza con vista mare" id="billiard-main-img">
+          </div>
+          <div class="gallery-thumbs">
+            <div class="gallery-thumb active" data-full="images/billiard-house-terrace.jpg" data-target="billiard-main-img"><img src="images/billiard-house-terrace.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/billiard-house-table.jpg" data-target="billiard-main-img"><img src="images/billiard-house-table.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/billiard-house-dining.jpg" data-target="billiard-main-img"><img src="images/billiard-house-dining.jpg" alt=""></div>
+            <div class="gallery-thumb" data-full="images/billiard-house-garden.jpg" data-target="billiard-main-img"><img src="images/billiard-house-garden.jpg" alt=""></div>
+          </div>
         </div>
         <div class="house-info">
           <div class="eyebrow" data-i18n="house2Eyebrow">Casa 2</div>
@@ -339,6 +366,17 @@
     const sel = document.getElementById('langSwitch');
     if(sel && sel.value !== lang) sel.value = lang;
   }
+
+  document.querySelectorAll('.gallery-thumb').forEach(function(thumb){
+    thumb.addEventListener('click', function(){
+      const full = thumb.getAttribute('data-full');
+      const targetId = thumb.getAttribute('data-target');
+      const mainImg = document.getElementById(targetId);
+      if(mainImg) mainImg.src = full;
+      thumb.parentElement.querySelectorAll('.gallery-thumb').forEach(function(t){ t.classList.remove('active'); });
+      thumb.classList.add('active');
+    });
+  });
 
   document.getElementById('langSwitch').addEventListener('change', function(e){ setLanguage(e.target.value); });
 
